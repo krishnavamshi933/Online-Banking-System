@@ -19,5 +19,5 @@ services:
       - ./db:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=Online_Banking_System
-      - POSTGRES_PASSWORD=${ONLINE_BANKING_SYSTEM_DATABASE_PASSWORD}
+      - POSTGRES_PASSWORD=password
       - POSTGRES_DB=Online_Banking_System_development

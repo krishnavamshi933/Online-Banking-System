@@ -7,14 +7,14 @@ WORKDIR /app
 # Copy the Gemfile and Gemfile.lock into the container
 COPY Gemfile Gemfile.lock ./
 
+# Update mimemagic gem
+RUN bundle update mimemagic
+
 # Install dependencies
 RUN bundle install && bundle exec rails db:prepare
 
 # Copy the rest of the application code into the container
 COPY . .
-
-# Run database migrations
-
 
 # Install Node.js dependencies
 RUN apt-get update && apt-get install -y nodejs

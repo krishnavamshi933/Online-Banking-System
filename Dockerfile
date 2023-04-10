@@ -1,26 +1,24 @@
-# Use the official Ruby base image with a specific version
-FROM ruby:3.1.2
+# Use the official Ruby image as the base image
+FROM ruby:3.0.3
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the Gemfile and Gemfile.lock into the container
+# Copy the Gemfile and Gemfile.lock to the working directory
 COPY Gemfile Gemfile.lock ./
 
-# Install dependencies
-RUN bundle install && bundle rails db:prepare
+# Install dependencies using Bundler
+RUN bundle install
 
-# Copy the rest of the application code into the container
+# Copy the rest of the application files to the working directory
 COPY . .
 
-# Run database migrations
+# Set environment variables for the application
+ENV RAILS_ENV=development
+ENV ONLINE_BANKING_SYSTEM_DATABASE_PASSWORD=devlopment
 
-
-# Install Node.js dependencies
-RUN apt-get update && apt-get install -y nodejs
-
-# Expose the port on which the application will run
+# Expose port 3000 for the Rails application to run
 EXPOSE 3000
 
 # Start the Rails application
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+CMD bundle exec rails server -b 0.0.0.0
